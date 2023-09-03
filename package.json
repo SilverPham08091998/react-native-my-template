@@ -8,8 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SilverPham08091998/react-native-template-typescript.git",
-    "baseUrl": "https://github.com/SilverPham08091998/react-native-template-typescript"
+    "url": "git+https://github.com/SilverPham08091998/react-native-my-template-typescript.git",
+    "baseUrl": "https://github.com/SilverPham08091998/react-native-my-template-typescript"
   },
   "keywords": [
     "react-native",
