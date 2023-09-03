@@ -1,5 +1,5 @@
 {
-  "name": "react-native-my-template-typescript",
+  "name": "react-native-my-template",
   "title": "A template for React Native.",
   "version": "1.0.0",
   "description": "A template for React Native.",
@@ -8,8 +8,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SilverPham08091998/react-native-my-template-typescript.git",
-    "baseUrl": "https://github.com/SilverPham08091998/react-native-my-template-typescript"
+    "url": "git+https://github.com/SilverPham08091998/react-native-my-template.git",
+    "baseUrl": "https://github.com/SilverPham08091998/react-native-my-template"
   },
   "keywords": [
     "react-native",
