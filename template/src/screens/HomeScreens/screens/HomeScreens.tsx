@@ -8,9 +8,10 @@ import { navigate, SCREEN_NAME } from "@/util/constants";
 const HomeScreens = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <CHeader title={"Tên gian hàng"} />
+      <CHeader title={"Home"} isShowBack={true} />
       <ScrollView style={{ flex: 1 }} nestedScrollEnabled={true} />
       <CButton
+        style={{ marginBottom: scale(12) }}
         title={"Navigate"}
         onPress={() => {
           navigate(SCREEN_NAME.PRODUCT_STACK, SCREEN_NAME.PRODUCT, {
@@ -27,7 +28,8 @@ export default HomeScreens;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: GET_COLORS().WHITE,
+    backgroundColor: GET_COLORS().BACKGROUND_GRAY,
+
     flex: 1,
   },
   line: {

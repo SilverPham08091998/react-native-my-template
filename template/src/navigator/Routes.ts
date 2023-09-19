@@ -1,6 +1,6 @@
 import { ProductStackParamList } from "./ProductStackNavigator/ProductStackParamList";
-import { CategoriesStackParamList } from "@/navigator/TabHomeNavigator/Categories/CategoriesStackParamsList";
-import { NavigationProp } from "@react-navigation/native";
+import { CategoriesStackParamList } from "./TabHomeNavigator/Categories/CategoriesStackParamsList";
+import { SettingStackParamList } from "./SettingStackNavigator/SettingStackParamList";
 
 export type RootStackParamList = {
   MAIN_STACK: undefined;
@@ -9,8 +9,14 @@ export type RootStackParamList = {
   USER_STACK: undefined;
   SEARCH_STACK: undefined;
   PRODUCT_STACK: undefined | { screen: string; params?: any };
+  SETTING_STACK: undefined;
 };
-export type { ProductStackParamList, CategoriesStackParamList };
+export type {
+  ProductStackParamList,
+  CategoriesStackParamList,
+  SettingStackParamList,
+};
 
-export type CombineStackParamList = RootStackParamList & ProductStackParamList;
-export type StackNavigation = NavigationProp<CombineStackParamList>;
+export type CombineStackParamList = RootStackParamList &
+  ProductStackParamList &
+  SettingStackParamList;

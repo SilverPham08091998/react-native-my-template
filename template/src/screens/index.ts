@@ -8,6 +8,8 @@ import { UserScreens } from "@/screens/UserScreens";
 
 import { ProductDetailScreen, ProductScreen } from "@/screens/ProductScreen";
 
+import { SettingScreen } from "@/screens/SettingScreen";
+
 export {
   CategoriesScreen,
   HomeScreens,
@@ -16,4 +18,5 @@ export {
   SubCategoriesDetailScreen,
   ProductDetailScreen,
   ProductScreen,
+  SettingScreen,
 };

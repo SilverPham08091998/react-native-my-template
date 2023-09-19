@@ -14,6 +14,7 @@ module.exports = (api) => {
 
   const plugins = [
     ["module-resolver", moduleResolverConfig],
+    "react-native-reanimated/plugin",
   ];
 
   return {

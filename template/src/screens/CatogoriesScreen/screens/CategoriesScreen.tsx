@@ -8,10 +8,10 @@ const CategoriesScreen = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: GET_COLORS()?.WHITE,
+        backgroundColor: GET_COLORS()?.BACKGROUND_GRAY,
       }}
     >
-      <CHeader title={"Danh mục"} isShowBack={false} />
+      <CHeader title={"Categories"} isShowBack={true} />
     </SafeAreaView>
   );
 };

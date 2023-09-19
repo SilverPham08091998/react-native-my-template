@@ -13,7 +13,7 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "tsconfigRootDir": "/users/silverpham/desktop/phamnhattinhbv/react-native-my-template/template/tsconfig.json"
   },
   "plugins": [
     "@typescript-eslint",

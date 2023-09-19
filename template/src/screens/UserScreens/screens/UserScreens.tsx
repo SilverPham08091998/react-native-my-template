@@ -1,12 +1,18 @@
-import { View } from "react-native";
-import { CText } from "@/components";
+import { SafeAreaView } from "react-native";
+import { CHeader } from "@/components";
 import React from "react";
+import { GET_COLORS } from "@/theme";
 
 const UserScreens = () => {
   return (
-    <View>
-      <CText>User</CText>
-    </View>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: GET_COLORS()?.BACKGROUND_GRAY,
+      }}
+    >
+      <CHeader title={"User"} isShowBack={true} />
+    </SafeAreaView>
   );
 };
 
