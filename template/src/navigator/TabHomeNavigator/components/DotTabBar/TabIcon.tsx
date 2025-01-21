@@ -74,41 +74,33 @@ interface TabIconProps {
 export const TabIcon = (props: TabIconProps) => {
   const { tab, routeName, fillActive, fillInactive } = props;
   switch (tab) {
-    case SCREEN_NAME.HOME_STACK: {
+    case SCREEN_NAME.HOME: {
       return (
         <HomeIcon
-          fill={
-            routeName === SCREEN_NAME.HOME_STACK ? fillActive : fillInactive
-          }
+          fill={routeName === SCREEN_NAME.HOME ? fillActive : fillInactive}
         />
       );
     }
-    case SCREEN_NAME.CATEGORIES_STACK: {
+    case SCREEN_NAME.CATEGORIES: {
       return (
         <CalendarIcon
           fill={
-            routeName === SCREEN_NAME.CATEGORIES_STACK
-              ? fillActive
-              : fillInactive
+            routeName === SCREEN_NAME.CATEGORIES ? fillActive : fillInactive
           }
         />
       );
     }
-    case SCREEN_NAME.SEARCH_STACK: {
+    case SCREEN_NAME.SEARCH: {
       return (
         <PasteIcon
-          fill={
-            routeName === SCREEN_NAME.SEARCH_STACK ? fillActive : fillInactive
-          }
+          fill={routeName === SCREEN_NAME.SEARCH ? fillActive : fillInactive}
         />
       );
     }
-    case SCREEN_NAME.USER_STACK: {
+    case SCREEN_NAME.USER: {
       return (
         <MessageIcon
-          fill={
-            routeName === SCREEN_NAME.USER_STACK ? fillActive : fillInactive
-          }
+          fill={routeName === SCREEN_NAME.USER ? fillActive : fillInactive}
         />
       );
     }

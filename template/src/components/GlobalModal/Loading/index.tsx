@@ -1,7 +1,8 @@
-import React, { useImperativeHandle, useState } from "react";
+import React, { useEffect, useImperativeHandle, useState } from "react";
 import { Modal, StatusBar, StyleSheet, View } from "react-native";
 import { scale } from "react-native-utils-scale";
 import { UIActivityIndicator } from "react-native-indicators";
+import { useAppSelector } from "@/util/hook";
 
 export const globalLoadingRef = React.createRef<any>();
 
@@ -16,6 +17,12 @@ export const globalLoading = {
 
 const GlobalLoading = React.forwardRef((props, ref) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const { loading } = useAppSelector((state) => {
+    return state.appState;
+  });
+  useEffect(() => {
+    setVisible(loading);
+  }, [loading]);
 
   useImperativeHandle(ref, () => {
     return { show: show, hide: hide };
@@ -55,7 +62,7 @@ const GlobalLoading = React.forwardRef((props, ref) => {
   );
 });
 
-export default React.memo(GlobalLoading);
+export default GlobalLoading;
 
 const styles = StyleSheet.create({
   main: {

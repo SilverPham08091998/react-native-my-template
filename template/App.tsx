@@ -6,9 +6,12 @@ import { StatusBar, View } from "react-native";
 import Navigator from "./src/navigator";
 import { I18nextProvider } from "react-i18next";
 import i18next from "./src/util/language";
-
-import { GlobalMessage, globalMessageRef } from "@/components";
-import { GlobalLoading, globalLoadingRef } from "@/components/GlobalModal";
+import {
+  GlobalLoading,
+  globalLoadingRef,
+  GlobalMessage,
+  globalMessageRef,
+} from "@/components";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const App = () => {

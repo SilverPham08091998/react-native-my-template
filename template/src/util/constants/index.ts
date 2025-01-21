@@ -1,15 +1,6 @@
 import { SCREEN_NAME } from "./NameScreens";
 import { DEVICE_HEIGHT, DEVICE_WIDTH, StatusBarHeight } from "./DeviceSize";
-import {
-  getCurrentRoute,
-  goBack,
-  navigate,
-  navigationRef,
-  pop,
-  push,
-  replace,
-  reset,
-} from "./NavigationService/NavigationRef";
+import { NAVIGATION, navigationRef } from "./NavigationService/NavigationRef";
 
 export {
   SCREEN_NAME,
@@ -17,11 +8,5 @@ export {
   DEVICE_HEIGHT,
   StatusBarHeight,
   navigationRef,
-  goBack,
-  push,
-  navigate,
-  reset,
-  getCurrentRoute,
-  replace,
-  pop,
+  NAVIGATION,
 };

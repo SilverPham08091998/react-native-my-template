@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Pressable } from "react-native";
+import { Animated, Pressable, StyleSheet } from "react-native";
 import { GET_COLORS } from "@/theme";
-import { Props } from "./type";
-import { styles } from "./style";
 
-const ComponentSwitch: React.FC<Props> = (props: Props) => {
+interface Props {
+  handleOnPress: (val: boolean) => void;
+  value: boolean;
+  activeTrackColor?: string;
+  inActiveTrackColor?: string;
+  thumbColor?: string;
+  disable?: boolean;
+}
+
+const ComponentSwitch = (props: Props) => {
   const {
     handleOnPress,
     value,
@@ -77,4 +84,28 @@ const ComponentSwitch: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default React.memo(ComponentSwitch);
+const styles = StyleSheet.create({
+  circleStyle: {
+    width: 20,
+    height: 20,
+    borderRadius: 20,
+  },
+  containerStyle: {
+    width: 48,
+    paddingVertical: 2,
+    paddingHorizontal: 2,
+    borderRadius: 36.5,
+  },
+  shadowValue: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+});
+
+export default ComponentSwitch;

@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { scale } from "react-native-utils-scale";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import Svg, { Path } from "react-native-svg";
-import { DEVICE_WIDTH, navigate, SCREEN_NAME } from "@/util/constants";
+import { DEVICE_WIDTH, NAVIGATION, SCREEN_NAME } from "@/util/constants";
 import { getPathDown } from "./path";
 import { TabIcon } from "./TabIcon";
 import { GET_COLORS } from "@/theme";
@@ -41,10 +41,14 @@ export const TabHandler: FC<TabHandlerProps> = ({
         {tabs.map((tab: any, index: number) => {
           const onPress = () => {
             if (tab.name === "Optional") {
-              navigate(SCREEN_NAME.PRODUCT_STACK, SCREEN_NAME.PRODUCT, {
-                userId: "Silver",
-                count: 1,
-              });
+              NAVIGATION.navigate(
+                SCREEN_NAME.PRODUCT_STACK,
+                SCREEN_NAME.PRODUCT,
+                {
+                  userId: "Silver",
+                  count: 1,
+                }
+              );
             } else {
               bottomBarProps.navigation.navigate(tab.name);
             }

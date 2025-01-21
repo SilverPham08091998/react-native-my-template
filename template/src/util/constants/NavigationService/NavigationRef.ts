@@ -73,8 +73,7 @@ const getCurrentRoute = () => {
   return currentRoute;
 };
 
-export {
-  navigationRef,
+const NAVIGATION = {
   goBack,
   push,
   navigate,
@@ -83,3 +82,5 @@ export {
   replace,
   pop,
 };
+
+export { navigationRef, NAVIGATION };

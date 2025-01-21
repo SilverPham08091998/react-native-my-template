@@ -1,17 +1,15 @@
-import { store } from "@/core";
-import axios from "axios";
-import { API, DOMAIN } from "./urlAPI";
-
-const CODE_UNAUTHORIZED = 401;
-const CODE_SERVICE_UNAVAILABLE = 503;
+import axios, { Method } from "axios";
+import { DOMAIN } from "./urlAPI";
+import { ApiErrorResponse, ApiSuccessResponse, HttpMethod } from "@/type";
+import qs from "qs";
 
 interface configs {
   domain?: string;
   url?: string;
   authorization?: string;
-  header?: object;
+  header?: Record<string, any>;
   params?: any;
-  method: "POST" | "GET" | "PUT" | "DELETE";
+  method: Method;
   options?: {
     json?: boolean;
     formData?: boolean;
@@ -21,20 +19,13 @@ interface configs {
 }
 
 export default class UtilApi {
-  static request = (configs: configs) => {
+  static request = <T>(configs: configs): Promise<ApiSuccessResponse<T>> => {
     let header: any = {
       "Content-Type": "application/x-www-form-urlencoded",
-      "X-CSRF-TOKEN": "",
       ...configs.header,
     };
 
-    if (
-      store.getState().home?.accessToken &&
-      store.getState().home.accessToken.length > 0
-    ) {
-      header.Authorization = `Bearer ${store.getState().home.accessToken}`;
-      header["X-CSRF-TOKEN"] = `Bearer ${store.getState().home.accessToken}`;
-    }
+    // Api config token
 
     if (configs.authorization && configs.authorization.length > 0) {
       header.Authorization = configs.authorization;
@@ -43,120 +34,71 @@ export default class UtilApi {
     const domain = configs.domain ? configs.domain : DOMAIN;
 
     configs.url = `${domain}/${configs.url}`;
-
+    let data;
     if (configs.options?.json) {
-      configs.params = JSON.stringify(configs.params);
+      data = JSON.stringify(configs.params);
       header["Content-Type"] = "application/json";
-    } else if (configs.options?.formData) {
-      header["Content-Type"] = "multipart/form-data";
-    } else {
+    }
+    if (configs.options?.formData) {
+      if (configs.params instanceof FormData) {
+        data = configs.params;
+      } else {
+        data = new FormData();
+        for (const key in configs.params) {
+          if (Object.prototype.hasOwnProperty.call(configs.params, key)) {
+            data.append(key, configs.params[key]);
+          }
+        }
+        header["Content-Type"] = "multipart/form-data";
+      }
+    }
+    if (configs.options?.formUrlEncoded) {
+      data = new URLSearchParams(configs.params).toString();
       header["Content-Type"] = "application/x-www-form-urlencoded";
     }
+    axios.interceptors.request.use(
+      async (request) => {
+        // Handle request error
+        return request;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
+    axios.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        // Handle response error
+        return Promise.reject(error);
+      }
+    );
 
-    const req: Promise<any> = axios
-      .request({
+    return axios
+      .request<ApiSuccessResponse<T>>({
         url: configs.url,
-        timeout: configs.timeout || 30000,
+        timeout: configs.timeout || 60000,
         headers: header,
         method: configs.method,
-        params: configs.params,
-        ...(configs.options?.json && { data: configs.params, params: {} }),
+        params:
+          configs.method.toUpperCase() === HttpMethod.GET
+            ? configs.params
+            : undefined,
+        paramsSerializer: (params) => {
+          return qs.stringify(params, { arrayFormat: "comma" }).toString();
+        },
+        data:
+          configs.method.toUpperCase() !== HttpMethod.GET ? data : undefined,
       })
       .then((response) => {
-        if (configs?.url != null) {
-          __DEV__ &&
-            LogRequest(
-              configs?.url,
-              configs.method,
-              configs.params,
-              header,
-              response.data
-            );
-        }
-        return response.data;
+        return response.data as ApiSuccessResponse<T>;
       })
       .catch((error) => {
-        if (configs?.url) {
-          __DEV__ &&
-            LogRequest(
-              configs.url,
-              configs.method,
-              configs.params,
-              header,
-              error?.response?.data
-            );
-        }
-        if (
-          configs?.url &&
-          (configs?.url.includes(API.LOGIN) ||
-            configs?.url.includes(API.REFRESH_TOKEN))
-        ) {
-          return error?.response;
-        } else {
-          const httpStatusCode = error?.response?.status;
-          handleError(httpStatusCode);
-          return error?.response;
-        }
+        return Promise.reject({
+          ...error?.response?.data,
+          statusCode: error.response.status,
+        } as ApiErrorResponse);
       });
-
-    return req;
   };
 }
-
-const LogRequest = (
-  url: string,
-  method: string,
-  params: any,
-  header: any,
-  response: any
-) => {
-  console.log(
-    "=============== REQUEST ===============\n",
-    "\nURL: ",
-    url,
-    "\nMethod: ",
-    method,
-    "\nParams: ",
-    params,
-    "\nHeader: ",
-    header
-  );
-  console.log(
-    "=============== RESPONSE ===============\n",
-    JSON.stringify(response, null, " ") || true,
-    "\n======================================="
-  );
-};
-
-/**
- * =========================================
- * HANDLE ERROR
- * =========================================
- */
-function handleError(code: number) {
-  switch (code) {
-    case CODE_UNAUTHORIZED:
-      handleInvalidToken();
-      break;
-    case CODE_SERVICE_UNAVAILABLE:
-      handleServiceUnavailable();
-      break;
-    // more case ....
-    default:
-      break;
-  }
-}
-
-/**
- * =========================================
- * INVALID OR EXPIRED TOKEN
- * =========================================
- */
-export function handleInvalidToken() {}
-
-/**
- * =========================================
- * SERVICE UNAVAILABLE
- * =========================================
- */
-function handleServiceUnavailable() {}

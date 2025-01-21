@@ -20,7 +20,6 @@ const { width: windowWidth } = Dimensions.get("window");
 
 export const DotTabBar: FC<TabsUiProps> = ({ tabs, state, bottomBarProps }) => {
   const tabWidth = useMemo(() => windowWidth / tabs.length, [tabs.length]);
-
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "column" }}>

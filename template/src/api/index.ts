@@ -1,4 +1,4 @@
 import UtilApi from "./api";
-import { API, DOMAIN } from "./urlAPI";
+import { API, createPath, DOMAIN } from "./urlAPI";
 
-export { DOMAIN, API, UtilApi };
+export { DOMAIN, API, UtilApi, createPath };

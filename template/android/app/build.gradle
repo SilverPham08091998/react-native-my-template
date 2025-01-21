@@ -93,6 +93,7 @@ android {
     ndkVersion rootProject.ext.ndkVersion
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.rntemplate"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

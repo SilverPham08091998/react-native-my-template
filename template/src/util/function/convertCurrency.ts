@@ -1,17 +1,19 @@
-import "intl";
-import "intl/locale-data/jsonp/en";
-
 const formatterVI = new Intl.NumberFormat("it-IT", {
   style: "currency",
   currency: "VND",
 });
 
-export const convertCurrency = (billOfMount: any) => {
+const convertCurrency = (billOfMount: number) => {
   return (
     formatterVI
       .format(billOfMount)
       .replace(/[a-zA-Z₫]/g, "")
       .replace(/,/g, ".")
-      .trim() + " ₫"
+      .trim() + " VND"
   );
 };
+const CURRENCY_CONVERT = {
+  convertCurrency,
+};
+
+export { CURRENCY_CONVERT };

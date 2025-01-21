@@ -1,7 +1,7 @@
 import { navigationRef, SCREEN_NAME } from "@/util/constants";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeStack from "@/navigator/TabHomeNavigator/Home";
 import SearchStack from "@/navigator/TabHomeNavigator/Search";
@@ -10,10 +10,25 @@ import UserStack from "@/navigator/TabHomeNavigator/User";
 import BottomTabHome from "@/navigator/TabHomeNavigator";
 import { CombineStackParamList } from "@/navigator/Routes";
 import ProductStack from "@/navigator/ProductStackNavigator";
+import { REDUX_ACTION } from "@/redux";
+import NetInfo from "@react-native-community/netinfo";
+import { useAppDispatch } from "@/util";
 
 const Stack = createNativeStackNavigator<CombineStackParamList>();
 
 const Navigator = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      dispatch({
+        type: REDUX_ACTION.APP_STATE_ACTION.IS_CHECK_CONNECTED_INTERNET,
+        payload: state.isConnected,
+      });
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
   return (
     <NavigationContainer independent={true} ref={navigationRef}>
       <StatusBar backgroundColor={"transparent"} translucent />

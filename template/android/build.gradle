@@ -29,4 +29,18 @@ buildscript {
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath 'com.android.tools.build:gradle:7.2.2'
     }
+
+    allprojects {
+        repositories {
+          mavenLocal()
+          jcenter()
+          maven { url "$rootDir/../node_modules/react-native/android" }
+
+          // ADD THIS
+          maven { url 'https://maven.google.com' }
+
+          // ADD THIS
+          maven { url "https://www.jitpack.io" }
+        }
+    }
 }

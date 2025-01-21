@@ -1,16 +1,31 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
 import { scale } from "react-native-utils-scale";
 import { CText } from "..";
-import { COLORS_LIGHT } from "@/theme";
+import { COLORS_LIGHT, GET_COLORS, rgba } from "@/theme";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { Props } from "./type";
-import { styles } from "./style";
 
-const HeaderComponent: React.FC<Props> = (props) => {
+interface Props {
+  title: string;
+  isShowBack?: boolean;
+  onBack?: () => void;
+  containerStyle?: ViewStyle;
+  titleStyle?: TextStyle;
+  onPressCart?: () => void;
+  onPressCancel?: () => void;
+  onPressMore?: () => void;
+}
+
+const CHeader: React.FC<Props> = (props) => {
   const { goBack } = useNavigation();
   const {
     title = "Default",
@@ -70,4 +85,27 @@ const HeaderComponent: React.FC<Props> = (props) => {
   );
 };
 
-export default React.memo(HeaderComponent);
+export default React.memo(CHeader);
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: scale(16),
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: scale(12),
+  },
+  button: {
+    flexDirection: "row",
+    backgroundColor: rgba(GET_COLORS().BLACK_0, 0.05),
+    borderRadius: scale(30),
+    paddingHorizontal: scale(12),
+    paddingVertical: scale(4),
+    marginLeft: scale(8),
+  },
+  line: {
+    width: scale(2),
+    backgroundColor: GET_COLORS().TEXT_LINE,
+    marginHorizontal: scale(4),
+  },
+});

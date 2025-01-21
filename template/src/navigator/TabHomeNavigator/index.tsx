@@ -4,23 +4,25 @@ import {
   createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
 import { SCREEN_NAME } from "@/util/constants";
-import HomeStack from "./Home";
-import CategoriesStack from "./Categories";
-import UserStack from "./User";
-import SearchStack from "@/navigator/TabHomeNavigator/Search";
 import { DotTabBar } from "./components";
+import {
+  CategoriesScreen,
+  HomeScreens,
+  SearchScreen,
+  UserScreens,
+} from "@/screens";
 
 const BottomTab = createBottomTabNavigator();
 
 const EmptyComponent = () => null;
 const tabs = [
   {
-    name: SCREEN_NAME.HOME_STACK,
+    name: SCREEN_NAME.HOME,
   },
-  { name: SCREEN_NAME.CATEGORIES_STACK },
+  { name: SCREEN_NAME.CATEGORIES },
   { name: "Optional" },
-  { name: SCREEN_NAME.SEARCH_STACK },
-  { name: SCREEN_NAME.USER_STACK },
+  { name: SCREEN_NAME.SEARCH },
+  { name: SCREEN_NAME.USER },
 ];
 
 const BottomTabHome = () => {
@@ -37,15 +39,15 @@ const BottomTabHome = () => {
         options={{
           title: "Trang chủ",
         }}
-        name={SCREEN_NAME.HOME_STACK}
-        component={HomeStack}
+        name={SCREEN_NAME.HOME}
+        component={HomeScreens}
       />
       <BottomTab.Screen
         options={{
           title: "Danh mục",
         }}
-        name={SCREEN_NAME.CATEGORIES_STACK}
-        component={CategoriesStack}
+        name={SCREEN_NAME.CATEGORIES}
+        component={CategoriesScreen}
       />
       <BottomTab.Screen name={"Optional"} component={EmptyComponent} />
 
@@ -53,15 +55,15 @@ const BottomTabHome = () => {
         options={{
           title: "Tìm kiếm",
         }}
-        name={SCREEN_NAME.SEARCH_STACK}
-        component={SearchStack}
+        name={SCREEN_NAME.SEARCH}
+        component={SearchScreen}
       />
       <BottomTab.Screen
         options={{
           title: "Tài khoản",
         }}
-        name={SCREEN_NAME.USER_STACK}
-        component={UserStack}
+        name={SCREEN_NAME.USER}
+        component={UserScreens}
       />
     </BottomTab.Navigator>
   );

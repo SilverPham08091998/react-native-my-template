@@ -1,24 +1,46 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, View } from "react-native";
 import React from "react";
 import { COLORS_LIGHT, GET_COLORS } from "@/theme";
 import { scale } from "react-native-utils-scale";
-import { CButton, CHeader } from "@/components";
-import { navigate, SCREEN_NAME } from "@/util/constants";
+import { CHeader, CText, SwipeItem } from "@/components";
 
 const HomeScreens = () => {
   return (
     <SafeAreaView style={styles.container}>
       <CHeader title={"Home"} isShowBack={true} />
-      <ScrollView style={{ flex: 1 }} nestedScrollEnabled={true} />
-      <CButton
-        style={{ marginBottom: scale(12) }}
-        title={"Navigate"}
-        onPress={() => {
-          navigate(SCREEN_NAME.PRODUCT_STACK, SCREEN_NAME.PRODUCT, {
-            userId: "userId",
-            count: 0,
-          });
+      <FlatList
+        data={[1, 2, 3, 4, 5]}
+        renderItem={({ index }) => {
+          return (
+            <SwipeItem
+              showLeftAction={false}
+              showRightAction={true}
+              rightActions={"both"}
+              styleSwipeContainer={{ marginHorizontal: scale(24) }}
+              renderItemComponent={() => {
+                return (
+                  <View
+                    style={{
+                      height: 100,
+                      backgroundColor: GET_COLORS().PRIMARY,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CText
+                      fontSize={16}
+                      fontWeight={"600"}
+                      color={GET_COLORS().WHITE}
+                    >
+                      {`Swipe ${index + 1}`}
+                    </CText>
+                  </View>
+                );
+              }}
+            />
+          );
         }}
+        ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       />
     </SafeAreaView>
   );

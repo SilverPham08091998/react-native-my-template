@@ -1,28 +1,34 @@
 import { all, fork } from "redux-saga/effects";
 import { combineReducers } from "redux";
-import { CommonReducer, CommonSaga } from "./Common";
 import { HomeReducer, HomeSaga } from "./Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistReducer } from "redux-persist";
+import {
+  APP_STATE_ACTION,
+  AppStateAction,
+  AppStateReducer,
+  AppStateSaga,
+} from "@/redux/AppState";
 
-const commonPersistConfig = {
-  key: "common",
+const homePersist = {
+  key: "home",
   storage: AsyncStorage,
-  whitelist: [
-    "accessToken",
-    "codePKCE",
-    "configFeature",
-    "googleToken",
-    "user",
-  ],
+  whitelist: ["accessToken", "username"],
 };
 const RootReducer = combineReducers({
-  common: persistReducer(commonPersistConfig, CommonReducer),
-  home: HomeReducer,
+  home: persistReducer(homePersist, HomeReducer),
+  appState: AppStateReducer,
 });
 
 const ReduxSaga = function* ReduxSaga() {
-  yield all([fork(CommonSaga), fork(HomeSaga)]);
+  yield all([fork(HomeSaga), fork(AppStateSaga)]);
 };
 
-export { ReduxSaga, RootReducer };
+const ReduxAction = {
+  APP_STATE_ACTION: { ...AppStateAction },
+};
+const REDUX_ACTION = {
+  APP_STATE_ACTION: { ...APP_STATE_ACTION },
+};
+
+export { ReduxSaga, RootReducer, REDUX_ACTION, ReduxAction };

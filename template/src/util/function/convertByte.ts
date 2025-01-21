@@ -1,4 +1,4 @@
-export const convertBytes = (bytes: number | null, decimals = 2) => {
+const convertBytes = (bytes: number | undefined, decimals = 2) => {
   if (!bytes) {
     return "0 Bytes";
   }
@@ -11,3 +11,8 @@ export const convertBytes = (bytes: number | null, decimals = 2) => {
 
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 };
+
+const BYTE_CONVERTER = {
+  convertBytes,
+};
+export { BYTE_CONVERTER };

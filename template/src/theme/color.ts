@@ -62,7 +62,7 @@ const COLORS_DARK = {
 };
 
 const GET_COLORS = () => {
-  const { theme } = store.getState().common;
+  const { theme } = store.getState().appState;
   return theme ? theme : COLORS_LIGHT;
 };
 const rgba = (hex: string, opacity: number) => {

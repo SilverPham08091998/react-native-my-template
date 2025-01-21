@@ -1,4 +1,4 @@
-export const convertObjToQueryString = (obj: any) => {
+const convertObjToQueryString = (obj: any) => {
   const keyValuePairs = [];
   for (const key in obj) {
     keyValuePairs.push(
@@ -7,3 +7,22 @@ export const convertObjToQueryString = (obj: any) => {
   }
   return keyValuePairs.join("&");
 };
+
+const getValueFromArray = <T>(
+  value: string | number | undefined,
+  arr: Array<T>,
+  field: string
+): T => {
+  if (value) {
+    // @ts-ignore
+    const object = arr.find((item) => item[field] === value);
+    return object as T;
+  }
+  return {} as T;
+};
+
+const OBJECT_CONVERTER = {
+  convertObjToQueryString,
+  getValueFromArray,
+};
+export { OBJECT_CONVERTER };
